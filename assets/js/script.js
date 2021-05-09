@@ -6,94 +6,81 @@ let specialCharacters = ('#','$','%','&','(',')','*','+',',','-','.','/',':',';'
 
  // funtion to prompt the user for password options
 
- function getPassword(){
-   var options = {};
-}
+function getPassword(){
 
 
  // creat a variable to store the length of password
 
-var length = prompt(
-'How many characters would you like it to be?');
-length = parseInt(length);
-
-
-
+var length = prompt("How many characters would you like it to be?");
+  length = parseInt(length);
 
 //conditional statement to check if password is a t least 8 char
 
 if (length < 8){
   alert('Password length must be at least 8 characters');
-}
+  return;
+  }
 
  //conditional statement to check if password length is at least 128 character
- if (length > 128){
+  if (length > 128){
   alert('Password cannot contain more than 128 characters');
- }
+  return;
+  }
 
   //creat conditional statement to check if paswword length is actually a number
-if (Number.isNaN(length)) {
-  alert('password must be a number');
-}
+  if (Number.isNaN(length)) {
+    alert('password must be a number');
+  }
 Option.length = length;
 
 //create confirmation prompts for the type of characters the user wants to use in there password
 
-var capLetters = prompt("Would you like the password to have CAPITAL letters?");
+var capLetters=prompt("Would you like the password to have CAPITAL letters(y/n)?");
 
   if (capLetters === "Y" && capLetters === "N") {
-    
   }
   else if (capLetters === "Y") {
   options.upperCase = upperCase;
-} 
-  else {
-}
+  } 
+  else {} 
 
 
-var lowLetter = prompt("Would you like the password to have lowercase letters?");
+var lowLetter=prompt("Would you like the password to have lowercase letters(y/n)?");
+
+  if (lowLetter === "Y" && lowLetter === "N") {
+  } 
+  else if (lowLetter === "Y") {
+  options.lowerCase = lowLetter;
+  } 
+  else{}
 
 
+var theNumbers=prompt("Would you like it to contain number(1,2,3,etc)(y/n)?");
 
-if (lowLetter === "Y" && lowLetter === "N") {
-} 
-else if (lowLetter === "Y") {
-    options.lowerCase = lowLetter;
-} 
-else {
-}
-
-
-var theNumbers = prompt("Would you like it to contain number(1,2,3,etc)?");
-alert("Please enter Y or N");
-
-
-if (numbers === "Y" && numbers === "N") {
-} 
-else if (numbers === "Y") {
+  if (numbers === "Y" && numbers === "N") {
+  } 
+  else if (numbers === "Y") {
   options.numbers = numbers;
-} 
-else {}
+  } 
+  else{}
 
 
+var specChara = prompt("Would you like special characters(?><@#$%)(y/n)?");
 
-var specChara = prompt("Would you like special characters(?><@#$%)?)");
-alert("Please enter Y or N");
-
-
-if (specialCharacters === "Y" && specialCharacters === "Y") {
-} 
-else if (specialCharacters === "Y") {
+  if (specialCharacters === "Y" && specialCharacters === "Y") {
+  } 
+  else if (specialCharacters === "Y") {
   options.specialCharacters = specialCharacters;
-} 
-else {}
-
+  } 
+  else{}
+  return options;
+}
 
 //need to create a conditional statement to check if user included ATLEAST 1 of the char types. return user back to start of app
 
-function getRandomElement(arr) {
-  var randomIndex = Math.floor(Math.random() * arr.length);
-  var rand = arr[randomIndex];
+function getRandomEl(arr) {
+  var random = Math.floor(Math.random() * arr.length);
+  var rand = arr[random];
 
   return rand;
 }
@@ -104,7 +91,7 @@ function generatePassword() {
   var options = getPassword();
   var pwResult = [];
   var possibleChars = [];
-  var guarChar = [];
+  
 
 if (options.specialCharacters) {
   possibleChars = possibleChars.concat(specialCharacters);
@@ -119,8 +106,9 @@ if (options.numbers) {
   possibleChars = possibleChars.concat(numbers);
 }
 
-for (let count = 1; count <= length; count++ ) {
-  pwResult[i] = getRandomElement(possibleChars);
+for (let count = 0; count <= Option.length; count++ ) {
+
+  pwResult[count]=getRandomElement(possibleChars);
   }
   console.log(pwResult);
   pwResult = pwResult.join("");
@@ -140,4 +128,4 @@ function rcvPassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", getPassword);
+generateBtn.addEventListener("click", rcvPassword);
