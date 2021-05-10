@@ -1,9 +1,9 @@
 //var and data type
-let lowerCase = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
-let upperCase = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-let numbers = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
-let specialCharacters = ('#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@');
-
+let lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+let upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+let specialCharacters = ['#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@'];
+var passwordTextEl = document.querySelector("#password");
 var option = {};
 // funtion to prompt the user for password options
 
@@ -58,59 +58,55 @@ function getPassword() {
   option.specialCharacters = confirmChara;
   console.log(option);
   
-  return option;
+  passwordTextEl.value = generatePassword();
 }
 
 //need to create a conditional statement to check if user included ATLEAST 1 of the char types. return user back to start of app
 
-function getRandomEl(arr) {
+function getCharacterFromPool(arr) {
   var random = Math.floor(Math.random() * arr.length);
-  var rand = arr[random];
-
-  return rand;
+  var char = arr[random];
+  console.log(char);
+  
+  return char;
 }
 
 
 function generatePassword() {
 
-  var options = getPassword();
   var pwResult = [];
   var possibleChars = [];
 
 
-  if (options.specialCharacters) {
+  if (option.specialCharacters) {
     possibleChars = possibleChars.concat(specialCharacters);
   }
-  if (options.lowerCase) {
+  if (option.lowerCase) {
     possibleChars = possibleChars.concat(lowerCase);
   }
-  if (options.upperCase) {
+  if (option.upperCase) {
     possibleChars = possibleChars.concat(upperCase);
   }
-  if (options.numbers) {
+  if (option.numbers) {
     possibleChars = possibleChars.concat(numbers);
   }
+  console.log(possibleChars);
 
-  for (let count = 0; count <= Option.length; count++) {
+  for (let i = 0; i <= option.length; i++) {
+  var pwChar = getCharacterFromPool(possibleChars);
 
-    pwResult[count] = getRandomElement(possibleChars);
+    pwResult.push(pwChar);
   }
   console.log(pwResult);
-  pwResult = pwResult.join("");
-  return pwResult;
+  var pw = pwResult.join("");
+  return pw;
 }
 
 
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function rcvPassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-
-}
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", rcvPassword);
+generateBtn.addEventListener("click", getPassword);
